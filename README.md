@@ -1,16 +1,16 @@
 # Linux-Server-Configuration
 This project is required for Udacity's Full Stack Web Developer Nanodegree program.
 
-## Project Overview ##
+## Project Overview
 A baseline installation of a Linux server and preparing it to host our web applications, securing it from a number of attack vectors, installing and configuring a database server, and deploying our one of your existing web applications onto it.
 
 ### Link to Project: [ItemCatalog](http://54.93.245.143.xip.io/)
 
-## IP & Hostname ##
+## IP & Hostname
 1. IP: 54.93.245.143 
 2. Hostname: ec2-54-93-245-143.eu-central-1.compute.amazonaws.com
 
-## Amazon Lightsail Set Up ##
+## Amazon Lightsail Set Up
 1. Go to the [Amazon Lightsail](https://lightsail.aws.amazon.com/) website
 2. Click get started for free
 3. Create your first instance
@@ -22,7 +22,7 @@ A baseline installation of a Linux server and preparing it to host our web appli
 9. Click the networking tab 
 10. From this tab click add another under "Firewall" and choose Custom for application, TCP for protocol, and the port number under Port Range. Then click save. 
 11. That should be all that needs to be done with the Lightsail website.
-##Linux Configuration##
+## Linux Configuration
 1. Download your instance Private Key from your profile.
 2. in your local machine, cd to ( Users⁩ ▸ [your user] ▸ .ssh ).
 3. move your private key file into this directory and name it 'udacity_key.pem'.
@@ -30,7 +30,7 @@ A baseline installation of a Linux server and preparing it to host our web appli
 5. log into our Amazon Lightsail Server: `$ ssh -i ~/.ssh/udacity_key.pem ubuntu@[PUBLIC IP ADDRESS]`.
 6. log in as root user: `sudo su -`.
 7. Then type `sudo adduser grader` to create another user 'grader' 
-8. sudo nano /etc/sudoers.d/grader.
+8. `sudo nano /etc/sudoers.d/grader`.
 9. add the following line `grader ALL=(ALL:ALL) ALL` to add grader as a user.
 ### update virtual machine packages
 1. `sudo apt-get update'.
