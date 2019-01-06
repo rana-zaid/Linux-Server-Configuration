@@ -35,9 +35,9 @@ A baseline installation of a Linux server and preparing it to host a web applica
 3. `sudo apt-get dist-upgrade`.
 4. `sudo apt-get install finger`.
 ### Configure the key-based authentication for "grader" user
-1. From a new terminal run the command `ssh-keygen -f ~/.ssh/grader_key.rsa`.
-2. Run `cat ~/.ssh/grader_key.rsa.pub` to find the public key. Copy it.
-3. Back to server terminal, `cd /home/grader`.
+* From a new terminal run the command `ssh-keygen -f ~/.ssh/grader_key.rsa`.
+* Run `cat ~/.ssh/grader_key.rsa.pub` to find the public key. Copy it.
+* Back to server terminal, `cd /home/grader`.
    * create .ssh folder with `mkdir .ssh` for saving public keys.
    * Create a file to store the public key with the command `touch .ssh/authorized_keys`
    * Edit that file using `nano .ssh/authorized_keys` and paste the public key.
