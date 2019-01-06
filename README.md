@@ -29,7 +29,7 @@ A baseline installation of a Linux server and preparing it to host a web applica
 7. Type `sudo adduser grader` to create another user 'grader'.
 8. Create a file to give the user grader superuser privileges: `sudo nano /etc/sudoers.d/grader`.
 9. Add the following line `grader ALL=(ALL:ALL) ALL` to add grader as a user.
-### update virtual machine packages
+### Update virtual machine packages
 1. `sudo apt-get update`.
 2. `sudo apt-get upgrade`.
 3. `sudo apt-get dist-upgrade`.
@@ -130,11 +130,11 @@ $ pip install oauth2client
 </VirtualHost>
 ```
 If you need help finding your servers hostname go [here](https://whatismyipaddress.com/ip-hostname) and paste the IP address.
-11. Enable to virtual host:
+</br>11. Enable to virtual host:
 `$ sudo a2ensite catalog.conf`.
 and DISABLE the default host:
 `$ a2dissite 000-default.conf`.
-to enable your site and loading with the hostname.
+ to enable your site and loading with the hostname.
 ### setup the database
 ```
 $ sudo apt-get install libpq-dev python-dev
