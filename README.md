@@ -159,7 +159,7 @@ Now go and change `database_setup` and `seeder` and `__init__` files to have ins
 2. Add authorized Javascript origins: `http://54.93.245.143.xip.io`
 3. Add authorised redirect URIs: `http://54.93.245.143.xip.io/gconnect` and `http://54.93.245.143.xip.io/login`
 4. Download the updated JSON file, copy its content and paste it in server copy : `sudo nano client_secrets.json`. 
-Finally, Restart your apache server `$ sudo service apache2 restart` and open up your ip address in the browser with extension `xip.io`.
+</br>Finally, Restart your apache server `$ sudo service apache2 restart` and open up your ip address in the browser with extension `xip.io`.
 
 ### References:
 * https://github.com/mulligan121/Udacity-Linux-Configuration
