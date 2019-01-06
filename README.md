@@ -21,7 +21,6 @@ A baseline installation of a Linux server and preparing it to host our web appli
 8. The last thing we will need to do is configure the ports Amazon Lightsail will allow. By default the firewall is set to only allow connects from port 22 and port 80. We need to set up port 2200 and 123.
 9. Click the networking tab 
 10. From this tab click add another under "Firewall" and choose Custom for application, TCP for protocol, and the port number under Port Range. Then click save. 
-11. That should be all that needs to be done with the Lightsail website.
 ## Linux Configuration
 1. Download your instance Private Key from your profile.
 2. in your local machine, cd to ( Users⁩ ▸ [your user] ▸ .ssh ).
@@ -44,10 +43,10 @@ A baseline installation of a Linux server and preparing it to host our web appli
 * `touch .ssh/authorized_keys`
 * `nano .ssh/authorized_keys` and paste the public key.
 * change file permissions:
-1. `sudo chmod 700 /home/grader/.ssh`
-2. `sudo chmod 644 /home/grader/.ssh/authorized_keys`
-3. change file owner `sudo chown -R grader:grader /home/grader/.ssh`
-4. restart server configuration `sudo service ssh restart`.
+i. `sudo chmod 700 /home/grader/.ssh`
+ii. `sudo chmod 644 /home/grader/.ssh/authorized_keys`
+iii. change file owner `sudo chown -R grader:grader /home/grader/.ssh`
+iv. restart server configuration `sudo service ssh restart`.
 5. disconnect.
 
 
