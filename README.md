@@ -43,11 +43,11 @@ A baseline installation of a Linux server and preparing it to host our web appli
 * `touch .ssh/authorized_keys`
 * `nano .ssh/authorized_keys` and paste the public key.
 * change file permissions:
-&emsp;1. `sudo chmod 700 /home/grader/.ssh`
-&emsp;2. `sudo chmod 644 /home/grader/.ssh/authorized_keys`
-&emsp;3. change file owner `sudo chown -R grader:grader /home/grader/.ssh`
-&emsp;4. restart server configuration `sudo service ssh restart`.
-&emsp;5. disconnect.
+&emsp; 1. `sudo chmod 700 /home/grader/.ssh`
+&emsp; 2. `sudo chmod 644 /home/grader/.ssh/authorized_keys`
+&emsp; 3. change file owner `sudo chown -R grader:grader /home/grader/.ssh`
+&emsp; 4. restart server configuration `sudo service ssh restart`.
+&emsp; 5. disconnect.
 
 
 
