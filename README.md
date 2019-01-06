@@ -33,7 +33,7 @@ A baseline installation of a Linux server and preparing it to host our web appli
 8. `sudo nano /etc/sudoers.d/grader`.
 9. add the following line `grader ALL=(ALL:ALL) ALL` to add grader as a user.
 ### update virtual machine packages
-1. `sudo apt-get update'.
+1. `sudo apt-get update`.
 2. `sudo apt-get upgrade`.
 3. `sudo apt-get dist-upgrade`.
 ### Configure the key-based authentication for grader user
