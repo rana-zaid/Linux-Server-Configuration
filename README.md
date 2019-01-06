@@ -35,6 +35,7 @@ A baseline installation of a Linux server and preparing it to host our web appli
 1. `sudo apt-get update`.
 2. `sudo apt-get upgrade`.
 3. `sudo apt-get dist-upgrade`.
+4. `sudo apt-get install finger`.
 ### Configure the key-based authentication for grader user
 1. in another terminal write this `ssh-keygen -f ~/.ssh/grader_key.rsa` it will ask for password that grader will use to access the machine.
 2. `cat ~/.ssh/grader_key.rsa.pub` to find the public key. COPY IT.
@@ -43,11 +44,39 @@ A baseline installation of a Linux server and preparing it to host our web appli
 * `touch .ssh/authorized_keys`
 * `nano .ssh/authorized_keys` and paste the public key.
 * change file permissions:
-&nbsp;&nbsp;&nbsp;&nbsp; 1. `sudo chmod 700 /home/grader/.ssh`
-&nbsp;&nbsp;&nbsp;&nbsp; 2. `sudo chmod 644 /home/grader/.ssh/authorized_keys`
-&nbsp;&nbsp;&nbsp;&nbsp; 3. change file owner `sudo chown -R grader:grader /home/grader/.ssh`
-&nbsp;&nbsp;&nbsp;&nbsp; 4. restart server configuration `sudo service ssh restart`.
-&nbsp;&nbsp;&nbsp;&nbsp; 5. disconnect.
+1. `sudo chmod 700 /home/grader/.ssh`.
+2. `sudo chmod 644 /home/grader/.ssh/authorized_keys`.
+3. change file owner `sudo chown -R grader:grader /home/grader/.ssh`.
+4. restart server configuration `sudo service ssh restart`.
+5. disconnect.
+* Log into the server as grader: `ssh -i ~/.ssh/grader_key.rsa grader@54.93.245.143`
+* change PasswordAuthentication to NO and change port to 22200 using `sudo nano /etc/ssh/sshd_config`.
+* Restart ssh: '$ sudo service ssh restart'
+* BEFORE disconnecting and accessing server with port 2200, we need to setup firewall or else we will lose our access to the server:
+- sudo ufw allow 2200/tcp
+- sudo ufw allow 80/tcp
+- sudo ufw allow 123/udp
+- sudo ufw enable
+* Diconnect and log in using `ssh -i ~/.ssh/grader_key.rsa grader@54.93.245.143 -p 2200`
+## Application Deployment
+Hosting this application will require the Python virtual environment, Apache with mod_wsgi, PostgreSQL, and Git.
+1. Start by installing the required software
+```
+ $ sudo apt-get install apache2
+ $ sudo apt-get install libapache2-mod-wsgi python-dev
+ $ sudo apt-get install git
+ ```
+ 2. Enable mod_wsgi with the command '$ sudo a2enmod wsgi' and restart Apache using '$ sudo service apache2 restart'.
+ 3. Set up the folder structure :
+ ```
+$ cd /var/www
+$ sudo mkdir catalog
+$ sudo chown -R grader:grader catalog
+$ cd catalog
+$ git clone [Github Link] catalog
+```
+4. create .wsgi file `sudo nano catalog.wsgi` in the same directory.
+
 
 
 
