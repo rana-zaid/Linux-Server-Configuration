@@ -53,10 +53,12 @@ A baseline installation of a Linux server and preparing it to host our web appli
 * change PasswordAuthentication to NO and change port to 22200 using `sudo nano /etc/ssh/sshd_config`.
 * Restart ssh: '$ sudo service ssh restart'
 * BEFORE disconnecting and accessing server with port 2200, we need to setup firewall or else we will lose our access to the server:
-  - `sudo ufw allow 2200/tcp`
-  - `sudo ufw allow 80/tcp`
-  - `sudo ufw allow 123/udp`
-  - `sudo ufw enable`
+  ```
+  $ sudo ufw allow 2200/tcp
+  $ sudo ufw allow 80/tcp
+  $ sudo ufw allow 123/udp
+  $ sudo ufw enable
+  ```
 * Diconnect and log in using `ssh -i ~/.ssh/grader_key.rsa grader@54.93.245.143 -p 2200`
 ## Application Deployment
 Hosting this application will require the Python virtual environment, Apache with mod_wsgi, PostgreSQL, and Git.
@@ -75,7 +77,99 @@ $ sudo chown -R grader:grader catalog
 $ cd catalog
 $ git clone [Github Link] catalog
 ```
-4. create .wsgi file `sudo nano catalog.wsgi` in the same directory.
+4. Create the .wsgi file in the same directory by `$ sudo nano catalog.wsgi` and make sure your secret key matches with your project secret key.
+```
+import sys
+import logging
+logging.basicConfig(stream=sys.stderr)
+sys.path.insert(0, "/var/www/catalog/")
+
+from catalog import app as application
+application.secret_key = 'super_secret_key'
+```
+5. Rename your item_catalog.py or whatever you called it in your catalog application folder to __init__.py by:
+<\br>`$ mv item_catalog.py __init__.py`
+6. installing the virtual machine:
+```
+$ sudo pip install virtualenv
+$ sudo virtualenv venv
+$ source venv/bin/activate
+$ sudo chmod -R 777 venv
+```
+7. install All packages required for the application:
+```
+$ sudo apt-get install python-pip
+$ sudo pip install flask
+$ sudo pip install sqlalchemy
+$ pip install psycopg2-binary
+$ pip install requests
+$ pip install oauth2client
+```
+8. nano to `__init__.py` and change `client_secrets.json` path to `/var/www/catalog/catalog/client_secrets.json`
+9. setup server configuration with `sudo nano /etc/apache2/sites-available/catalog.conf`
+10. Paste in the following:
+
+```
+<VirtualHost *:80>
+    ServerName [YOUR PUBLIC IP ADDRESS]
+    ServerAlias [YOUR AMAZON LIGHTSAIL HOST NAME]
+    ServerAdmin admin@[YOUR PUBLIC IP ADDRESS]
+    WSGIDaemonProcess catalog python-path=/var/www/catalog:/var/www/catalog/venv/lib/python2.7/site-packages
+    WSGIProcessGroup catalog
+    WSGIScriptAlias / /var/www/catalog/catalog.wsgi
+    <Directory /var/www/catalog/catalog/>
+        Order allow,deny
+        Allow from all
+    </Directory>
+    Alias /static /var/www/catalog/catalog/static
+    <Directory /var/www/catalog/catalog/static/>
+        Order allow,deny
+        Allow from all
+    </Directory>
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    LogLevel warn
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+```
+If you need help finding your servers hostname go [here](https://whatismyipaddress.com/ip-hostname) and paste the IP address.
+11. Save and quit nano.
+12. Enable to virtual host:
+`$ sudo a2ensite catalog.conf`.
+and DISABLE the default host:
+`$ a2dissite 000-default.conf`.
+to enable your site to load with the hostname.
+### setup the database
+```
+$ sudo apt-get install libpq-dev python-dev
+$ sudo apt-get install postgresql postgresql-contrib
+$ sudo su - postgres
+$ psql
+```
+### Create a database user and password
+```
+postgres=# CREATE USER catalog WITH PASSWORD [your password];
+postgres=# ALTER USER catalog CREATEDB;
+postgres=# CREATE DATABASE catalog with OWNER catalog;
+postgres=# \c catalog
+catalog=# REVOKE ALL ON SCHEMA public FROM public;
+catalog=# GRANT ALL ON SCHEMA public TO catalog;
+catalog=# \q
+$ exit
+```
+Now go and change `database_setup` and `seeder` and `__init__` files to have instead of `sqlite:///databasename.db` to `postgresql://catalog:catalog@localhost/catalog` with username `catalog` and password `catalog`.
+### Setup Google oAuth:
+1. Add authorized domains `xip.io` at google console.
+2. Add authorized Javascript origins: `http://35.159.31.182.xip.io`
+3. Add authorised redirect URIs: `http://54.93.239.136.xip.io/gconnect` and `http://54.93.239.136.xip.io/login`
+4. download the updated JSON file, copy its content and paste it in server copy : `sudo nano client_secrets.json`.
+Restart your apache server `$ sudo service apache2 restart` and open up your ip address in the browser with extension `xip.io`.
+
+
+
+
+
+
+
 
 
 
