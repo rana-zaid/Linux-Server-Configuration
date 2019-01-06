@@ -53,10 +53,10 @@ A baseline installation of a Linux server and preparing it to host our web appli
 * change PasswordAuthentication to NO and change port to 22200 using `sudo nano /etc/ssh/sshd_config`.
 * Restart ssh: '$ sudo service ssh restart'
 * BEFORE disconnecting and accessing server with port 2200, we need to setup firewall or else we will lose our access to the server:
-- sudo ufw allow 2200/tcp
-- sudo ufw allow 80/tcp
-- sudo ufw allow 123/udp
-- sudo ufw enable
+  - `sudo ufw allow 2200/tcp`
+  - `sudo ufw allow 80/tcp`
+  - `sudo ufw allow 123/udp`
+  - `sudo ufw enable`
 * Diconnect and log in using `ssh -i ~/.ssh/grader_key.rsa grader@54.93.245.143 -p 2200`
 ## Application Deployment
 Hosting this application will require the Python virtual environment, Apache with mod_wsgi, PostgreSQL, and Git.
