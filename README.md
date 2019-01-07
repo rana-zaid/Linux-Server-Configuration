@@ -48,7 +48,7 @@ A baseline installation of a Linux server and preparing it to host a web applica
      4. restart server configuration `sudo service ssh restart`.
      5. disconnect.
 * Log into the server as grader: `ssh -i ~/.ssh/grader_key.rsa grader@54.93.245.143`
-* Change *PasswordAuthentication* to NO, *port* to 2200, and *PermitRootLogin* to no.using `sudo nano /etc/ssh/sshd_config`.
+* Change *PasswordAuthentication* to NO, *port* to 2200, and *PermitRootLogin* to no. using `sudo nano /etc/ssh/sshd_config`.
 * Restart ssh: `$ sudo service ssh restart`.
 * From here we need to configure the firewall using these commands:
   ```
