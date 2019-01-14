@@ -1,4 +1,4 @@
-# Linux-Server-Configuration
+# Linux Server Configuration
 This project is required for Udacity's Full Stack Web Developer Nanodegree program.
 
 ## Project Overview
